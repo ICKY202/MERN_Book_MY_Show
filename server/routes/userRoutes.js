@@ -3,6 +3,7 @@
 const express = require('express');
 const User = require('../model/userModel');
 const jwt = require('jsonwebtoken');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 const userRouter = express.Router();
 
@@ -39,6 +40,16 @@ userRouter.post('/login', async (req,res) => {
     }catch(error) {
         res.send({success: false, message: "An error occurred, please try again later"});
     } 
-})
+});
+
+userRouter.get('/get-current-user', authMiddleware, async (req,res) => {
+    console.log(req.body.userId);
+    try {
+        const user = await User.findById(req.body.user).select('-password');
+        res.send({success: true, message: "user authenticated!", data: user});
+    }catch(err) {
+        res.send({success: false, message: err.message});
+    } 
+});
 
 module.exports = userRouter;
