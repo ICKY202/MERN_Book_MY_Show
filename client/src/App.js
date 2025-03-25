@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import ProtectedRoute from './components/ProtectedRoute';
+import Admin from './pages/Admin/Admin';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
             <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
+            <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>}></Route>
           </Routes>
       </BrowserRouter>
     </div>

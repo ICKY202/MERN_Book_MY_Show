@@ -5,9 +5,9 @@ const User = require('../model/userModel');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middlewares/authMiddleware');
 
-const userRouter = express.Router();
+const userRoutes = express.Router();
 
-userRouter.post('/register', async(req, res) => {
+userRoutes.post('/register', async(req, res) => {
     console.log("register");
     try {
         const user = await User.findOne({email: req.body.email});
@@ -23,7 +23,7 @@ userRouter.post('/register', async(req, res) => {
         res.send({success: false, message: 'An error occurred, please try again later'});
     }
 });
-userRouter.post('/login', async (req,res) => {
+userRoutes.post('/login', async (req,res) => {
     console.log(req.body);
     try {
         const user = await User.findOne({email: req.body.email});
@@ -42,7 +42,7 @@ userRouter.post('/login', async (req,res) => {
     } 
 });
 
-userRouter.get('/get-current-user', authMiddleware, async (req,res) => {
+userRoutes.get('/get-current-user', authMiddleware, async (req,res) => {
     console.log(req.body.userId);
     try {
         const user = await User.findById(req.body.user).select('-password');
@@ -52,4 +52,4 @@ userRouter.get('/get-current-user', authMiddleware, async (req,res) => {
     } 
 });
 
-module.exports = userRouter;
+module.exports = userRoutes;
