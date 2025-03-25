@@ -16,3 +16,12 @@ export const readUser = async (values) => {
     console.log(err);
   }
 };
+
+export const getUser = async () => {
+  try {
+    const resp = await axiosInstance.get('http://127.0.0.1:8001/api/users/get-current-user')
+    return resp.data;
+  }catch(err) {
+    console.log(err);
+  }
+}
