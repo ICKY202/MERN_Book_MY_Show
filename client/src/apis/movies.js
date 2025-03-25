@@ -23,7 +23,7 @@ export const addMovie = async (values) => {
 
 export const updateMovie = async (values) => {
     try {
-        const response = await axiosInstance.put('http://127.0.0.1:8001/api/movies/update-Movie', values);
+        const response = await axiosInstance.put('http://127.0.0.1:8001/api/movies/update-movie', values);
 
         return response.data;
     }catch(err) {
@@ -33,7 +33,7 @@ export const updateMovie = async (values) => {
 
 export const deleteMovie = async (values) => {
     try {
-        const response = await axiosInstance.delete('http://127.0.0.1:8001/api/movies/delete-movie', values);
+        const response = await axiosInstance.put('http://127.0.0.1:8001/api/movies/delete-movie', values);
         return response.data;
     }catch(err) {
         console.log(err);

@@ -26,11 +26,12 @@ movieRoutes.get('/getAllMovies', async(req, res) => {
 });
 
 movieRoutes.put('/update-movie', async(req, res) => {
+    console.log(req.body);
     try {
         const body = req.body;
         const movieId = req.body._id;
         const movie = await Movie.findById(movieId);
-
+        console.log(movie);
         Object.keys(body).forEach((key) => {
             if(key !== '_id') movie[key] = body[key];
         });
@@ -42,14 +43,14 @@ movieRoutes.put('/update-movie', async(req, res) => {
     }
 });
 
-movieRoutes.delete('/delete-movie', async(req, res) => {
+movieRoutes.put('/delete-movie', async(req, res) => {
     
-    const movieId = req.body._id;
+    const movieId = req.body.id;
     try {
         await Movie.findByIdAndDelete(movieId);
         res.send({success: true, message: "Movie has been deleted successfully!"});
     }catch(err) {
-        res.send({success: false, message: err});
+        res.send({success: false, message: err.message});
     }
 });
 
