@@ -1,6 +1,6 @@
 import { Tabs } from "antd"
 import MovieList from "./MovieList"
-import TheaterList from "./TheaterList"
+import TheaterList from "../Partner/TheaterList"
 
 export default function Admin() {
     const items = [

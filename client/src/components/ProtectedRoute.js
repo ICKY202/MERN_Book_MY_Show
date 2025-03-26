@@ -28,6 +28,9 @@ export default function ProtectedRoute({children}) {
                 onClick={() => {
                   if(user.isAdmin) {
                     navigate('/admin');
+                  }else if(user.role === "partner") {
+                    console.log(user);
+                    navigate('/partner');
                   }
                 }}
                 >
