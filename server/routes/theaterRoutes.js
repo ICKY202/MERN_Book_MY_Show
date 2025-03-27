@@ -14,7 +14,7 @@ theaterRoutes.post('/add', async (req, res) => {
 });
 theaterRoutes.get('/getAllTheater', async (req, res) => {
     try {
-        const theaters = await Theater.find();
+        const theaters = await Theater.find().populate('owner');
         res.send({success: true, message: 'fetched all the theaters', data: theaters});
     }catch(err) {
         res.send({success: false, message: err.message});

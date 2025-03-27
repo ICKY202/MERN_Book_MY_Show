@@ -1,6 +1,6 @@
 import { Tabs } from "antd"
 import MovieList from "./MovieList"
-import TheaterList from "../Partner/TheaterList"
+import TheatersTable from "./TheaterTable"
 
 export default function Admin() {
     const items = [
@@ -12,7 +12,7 @@ export default function Admin() {
         {
             key: 2,
             label: "Theaters",
-            children: <TheaterList/>
+            children: <TheatersTable />
         }
     ]
     return <div>

@@ -38,3 +38,13 @@ export const deleteTheater = async (values) => {
         console.log(err.message);
     }
 }
+
+export const getAllTheaters = async() => {
+    try {
+        const resp = await axiosInstance.get('http://127.0.0.1:8001/api/theaters/getAllTheater');
+        console.log(resp);
+        return resp.data;
+    }catch(err) {
+        console.log(err.message);
+    }
+}
