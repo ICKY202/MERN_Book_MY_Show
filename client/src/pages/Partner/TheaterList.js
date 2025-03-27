@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/loaderSlice";
 import TheaterFormModal from "./TheaterFormModal";
 import DeleteTheatreModal from "./DeleteTheaterModal";
+import ShowModal from "./ShowModal";
 
 export default function TheaterList() {
   const [theaters, setTheaters] = useState([]);
@@ -15,6 +16,7 @@ export default function TheaterList() {
   const [formType, setFormType] = useState("");
   const [selectedTheater, setSelectedTheater] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isShowModalOpen, setIsShowModalOpen] = useState(false);
 
   const getTheaters = async () => {
     try {
@@ -85,7 +87,7 @@ export default function TheaterList() {
               <EditOutlined />
             </Button>
             <Button onClick={ () => { setIsDeleteModalOpen(true); setSelectedTheater(data); }}><DeleteOutlined/></Button>
-            {/* { data.isActive && <Button onClick={ () => { setIsShowModalOpen(true); setSelectedTheatre(data); }}>+ Shows</Button> } */}
+            { data.isActive && <Button onClick={ () => { setIsShowModalOpen(true); setSelectedTheater(data); }}>+ Shows</Button> }
           </div>
         );
       },
@@ -119,6 +121,7 @@ export default function TheaterList() {
         />
       )}
       {isDeleteModalOpen && <DeleteTheatreModal isDeleteModalOpen={isDeleteModalOpen} setIsDeleteModalOpen={setIsDeleteModalOpen} selectedTheatre={selectedTheater} setSelectedTheatre={setSelectedTheater} getTheaters={getTheaters} />}
+      {isShowModalOpen && <ShowModal selectedTheater={selectedTheater} setSelectedTheater={setSelectedTheater} isShowModalOpen={isShowModalOpen} setIsShowModalOpen={setIsShowModalOpen} />}
     </>
   );
 }

@@ -33,7 +33,7 @@ const showSchema = new mongoose.Schema(
     },
     theatre: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "theatre",
+      ref: "theater",
       required: true,
     },
   },
@@ -41,3 +41,5 @@ const showSchema = new mongoose.Schema(
 );
 
 const ShowModel = mongoose.model("show", showSchema);
+
+module.exports = ShowModel;
