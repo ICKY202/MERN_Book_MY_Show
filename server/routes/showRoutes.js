@@ -14,8 +14,8 @@ showRoutes.post('/add-show', async(req, res) => {
 });
 showRoutes.post('/get-show-byId', async(req, res)=> {
     try {
-        const showId = req.body._id;
-        const show = await ShowModel.findById({_id: showId}).populate('movie').populate('theater');
+        const {showId} = req.body;
+        const show = await ShowModel.findById({_id: showId}).populate('movie').populate('theatre');
         res.send({success: true, message: 'A show has fetched by id', data: show});
     }catch(err) {
         res.send({success: false, message: err.message});
@@ -32,11 +32,25 @@ showRoutes.post('/get-shows-by-theater', async(req, res)=> {
     }
 });
 showRoutes.post('/get-all-theaters-by-movie', async(req, res)=> {
-    try {
-        const {movie, date} = req.body;
-        const theaters = await ShowModel.find({movie, date}).populate('theater');
-    }catch(err) {
-        res.send({success: false, message: err.message});
+    try {   
+        const {movieId, date} = req.body;
+        const shows = await ShowModel.find({movie: movieId, date:date}).populate('theatre');
+        console.log(shows);
+        const uniqueTheatres = [];
+        //[{morning show, pvr, bangalore}, {noon show, pvr bangalore}, {noon show, inox, kolkota}]
+        shows.forEach((show) => {
+            const isTheatre = uniqueTheatres.find((theatre) => show.theatre._id === theatre._id);
+
+            if(!isTheatre) {
+                const theatersWithShows = shows.filter((showObj) => showObj.theatre._id === show.theatre._id);
+
+                uniqueTheatres.push({...show.theatre._doc, shows: theatersWithShows});
+            }
+        });
+
+        res.send({success: true, message: "fetched all theatres by the movie", data: uniqueTheatres});
+    }catch(err) {   
+        res.send({success: false, messsge: err.message});
     }
 });
 showRoutes.put('/update-show', async(req, res)=> {
@@ -57,7 +71,7 @@ showRoutes.post('/delete-show', async(req, res)=> {
     try {
         const id = req.body.showId;
         await ShowModel.findByIdAndDelete(id);
-        req.send({success: true, message: 'A show has been deleted successfully'});
+        res.send({success: true, message: 'A show has been deleted successfully'});
     }catch(err) {
         res.send({success: false, message: err.message});
     }

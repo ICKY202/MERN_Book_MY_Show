@@ -24,7 +24,16 @@ movieRoutes.get('/getAllMovies', async(req, res) => {
         res.send({success: false, message: err});
     }
 });
-
+movieRoutes.get('/get/:id', async(req, res) => {
+    try {
+        const {id} = req.params;
+        const movie = await Movie.find({_id: id});
+        console.log(movie);
+        res.send({success: true, message: 'movie fetched successfully', data: movie});
+    }catch(err) {
+        res.send({success: false, message: err.message});
+    }
+})
 movieRoutes.put('/update-movie', async(req, res) => {
     console.log(req.body);
     try {

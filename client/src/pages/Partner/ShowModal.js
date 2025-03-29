@@ -14,7 +14,7 @@ export default function ShowModal({
   setSelectedTheater,
 }) {
   const [view, setView] = useState("table");
-  const [shows, setShows] = useState();
+  const [shows, setShows] = useState([]);
   const [movies, setMovies] = useState(null);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [selectedShow, setSelectedShow] = useState(null);
@@ -48,6 +48,7 @@ export default function ShowModal({
             message.error(movies.message);
         }
         const response = await getAllShowsByTheater({_id: selectedTheater._id });
+        console.log(response);
         if(response.success) {
             const shows = response.data;
             setShows(shows.map((show) => ({...show, key: `show${show._id}`})));
@@ -289,7 +290,7 @@ export default function ShowModal({
                     <Select
                       id="movie"
                       placeholder="Select Movie"
-                      defaultValue={selectedMovie && selectedMovie.movieName}
+                      defaultValue={selectedMovie && selectedMovie.name}
                       style={{ width: "100%", height: "45px" }}
                       options={movies.map((movie) => ({
                         key: movie._id,

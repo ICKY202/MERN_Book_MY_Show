@@ -28,7 +28,25 @@ export const updateShow = async (values) => {
 
 export const deleteShow = async (values) => {
     try {
-        const resp = await axiosInstance.put('http://127.0.0.1:8001/api/shows/delete-show', values);
+        const resp = await axiosInstance.post('http://127.0.0.1:8001/api/shows/delete-show', values);
+        return resp.data;
+    }catch(err) {
+        console.log(err.message);
+    }
+}
+
+export const getAllTheatresByMovie = async (values) => {
+    try {
+        const resp = await axiosInstance.post('http://127.0.0.1:8001/api/shows/get-all-theaters-by-movie', values);
+        return resp.data;
+    }catch(err) {
+        console.log(err.message);
+    }
+}
+
+export const getShowById = async(values) => {
+    try {
+        const resp = await axiosInstance.post('http://127.0.0.1:8001/api/shows/get-show-byId', values);
         return resp.data;
     }catch(err) {
         console.log(err.message);
