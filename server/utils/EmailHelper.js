@@ -15,7 +15,7 @@ const replaceContent = (content, creds) => {
 }
 
 
-async function EmailHelper(templateName, receiverEmail, creds) {
+async function EmailHelper(templateName, receiverEmail, creds, bookingConfirmation) {
     try {
         const templatePath = path.join(__dirname, 'email_templates', templateName);
         const content = await fs.promises.readFile(templatePath, 'utf-8'); 
@@ -33,8 +33,7 @@ async function EmailHelper(templateName, receiverEmail, creds) {
         await transporter.sendMail({
             from: 'vigneshm674@gmail.com',
             to: receiverEmail,
-            subject: 'Forgot Password',
-            text: `Hi ${creds.name} this your reset otp ${creds.otp}`,
+            subject: bookingConfirmation,
             html: replaceContent(content, creds)
         })
     }catch(err) {

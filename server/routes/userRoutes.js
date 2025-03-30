@@ -74,7 +74,7 @@ userRoutes.patch('/forgot-password', async (req, res) => {
         await user.save();
         res.send({success: true, message: "OTP has been sent to your email", data: otp});
 
-        await EmailHelper('otp.html', user.email, {name: user.name, otp: otp});
+        await EmailHelper('otp.html', user.email, {name: user.name, otp: otp}, "reset password");
     }catch(err) {
         res.send({success: false, message: err.message});
     }   

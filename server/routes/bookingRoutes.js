@@ -3,6 +3,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const Booking = require("../model/BookingModel");
 const ShowModel = require("../model/showModel");
 const stripe = require("stripe")(process.env.stripe_secret_key);
+const EmailHelper = require("../utils/EmailHelper");
 
 bookingRoutes.post("/make-payment", authMiddleware, async (req, res) => {
   try {
@@ -38,6 +39,42 @@ bookingRoutes.post("/book-show", authMiddleware, async (req, res) => {
     await ShowModel.findByIdAndUpdate(req.body.show, {
       bookedSeats: updatedBookedSeats,
     });
+    const populatedBooking = await Booking
+      .findById(booking._id)
+      .populate("user")
+      .populate("show")
+      .populate({
+        path: "show",
+        populate: {
+          path: "movie",
+          model: "movie",
+        },
+      })
+      .populate({
+        path: "show",
+        populate: {
+          path: "theatre",
+          model: "theater",
+        },
+      });
+
+    res.send({
+      success: true,
+      message: "Show Booked Successfully",
+      data: populatedBooking,
+    });
+
+    await EmailHelper("ticketTemplate.html", populatedBooking.user.email, {
+      name: populatedBooking.user.name,
+      movie: populatedBooking.show.movie.name,
+      theatre: populatedBooking.show.theatre.name,
+      date: populatedBooking.show.date,
+      time: populatedBooking.show.time,
+      seats: populatedBooking.seats,
+      amount: populatedBooking.seats.length * populatedBooking.show.ticketPrice,
+      transactionId: populatedBooking.transactionId,
+    }, "Booking Confirmation");
+
     res.send({
       success: true,
       message: "Show has been booked successfully",
