@@ -24,15 +24,15 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'build')));
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 app.use('/api', rateLimit)
 app.use('/api/users', userRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/theaters', theaterRoutes);
 app.use('/api/shows', showRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 const PORT = 8001;
 
 app.listen(PORT, () => {
