@@ -23,6 +23,17 @@ const rateLimit = express_rate_limiter({
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+    directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'https://checkout.stripe.com/checkout.js'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "https://assets-in.bmscdn.com/"],
+        connectSrc: ["'self'", "https://api.stripe.com"],
+        scriptSrcElem: ["'self'", "'unsafe-inline'", "https://checkout.stripe.com"],
+        frameSrc: ["'self'", "https://checkout.stripe.com"],
+    },
+}))
 app.use(express.static(path.join(__dirname, 'build')));
 app.use('/api', rateLimit)
 app.use('/api/users', userRoutes);
