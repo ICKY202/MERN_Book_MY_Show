@@ -1,4 +1,4 @@
-import {useNavigate, Link} from 'react-router-dom'
+import {useNavigate, Link, useLocation} from 'react-router-dom'
 import {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {getUser} from '../apis/user';
@@ -7,10 +7,13 @@ import { setUser } from '../redux/userSlice';
 import {HomeOutlined, ProfileOutlined, UserOutlined, LogoutOutlined} from '@ant-design/icons';
 import { Layout,Menu } from 'antd';
 import { Header } from "antd/es/layout/layout";
+import { ROLE } from '../utils/constants';
 
 export default function ProtectedRoute({children}) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
+    
     const {user} = useSelector((state) => state.user);
     const navItems = [
         {
@@ -58,7 +61,6 @@ export default function ProtectedRoute({children}) {
     ]
     
     useEffect(() => {
-        console.log("hello")
         const fetchUser = async () => {
         try {
             dispatch(showLoading());
@@ -83,7 +85,13 @@ export default function ProtectedRoute({children}) {
         navigate('/login');
     }
   }, []);
-
+    if(location.pathname === `/${ROLE.ADMIN}`) {
+        if(!user || user.role !== ROLE.ADMIN) {
+            return navigate('/');
+        }else if(user.role === ROLE.USER || user.role === ROLE.PARTNER) {
+            return navigate(`/${user.role}`);
+        }
+    }
     return (
         user && (<>
             <Layout>
