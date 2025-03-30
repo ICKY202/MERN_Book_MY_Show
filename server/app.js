@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'build')));
-app.use('*', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 app.use('/api', rateLimit)
