@@ -25,3 +25,22 @@ export const getUser = async () => {
     console.log(err);
   }
 }
+export const forgotPassword = async (values) => {
+  try {
+    const resp = await axiosInstance.patch('http://127.0.0.1:8001/api/users/forgot-password', values);
+    console.log(resp);
+    return resp.data;
+  }catch(err) {
+    console.log(err);
+  }
+}
+
+export const resetPassword = async (values) => {
+  try {
+    const resp = await axiosInstance.patch('http://127.0.0.1:8001/api/users/reset-password', values);
+    console.log(resp);
+    return resp.data;
+  }catch(err) {
+    console.log(err);
+  }
+}
