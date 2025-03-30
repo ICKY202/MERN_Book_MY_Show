@@ -2,7 +2,7 @@ import { axiosInstance } from ".";
 
 export const addShow = async(values) => {
     try {
-        const resp = await axiosInstance.post('http://127.0.0.1:8001/api/shows/add-show', values);
+        const resp = await axiosInstance.post('/api/shows/add-show', values);
         return resp.data;
     }catch(err) {
         console.log(err.message);
@@ -11,7 +11,7 @@ export const addShow = async(values) => {
 
 export const getAllShowsByTheater = async (values) => {
     try {
-        const resp = await axiosInstance.post('http://127.0.0.1:8001/api/shows/get-shows-by-theater', values);
+        const resp = await axiosInstance.post('/api/shows/get-shows-by-theater', values);
         return resp.data;
     }catch(err) {
         console.log(err.message);
@@ -19,7 +19,7 @@ export const getAllShowsByTheater = async (values) => {
 }
 export const updateShow = async (values) => {
     try {
-        const resp = await axiosInstance.put('http://127.0.0.1:8001/api/shows/update-show', values);
+        const resp = await axiosInstance.put('/api/shows/update-show', values);
         return resp.data;
     }catch(err) {
         console.log(err.message);
@@ -28,7 +28,7 @@ export const updateShow = async (values) => {
 
 export const deleteShow = async (values) => {
     try {
-        const resp = await axiosInstance.post('http://127.0.0.1:8001/api/shows/delete-show', values);
+        const resp = await axiosInstance.post('/api/shows/delete-show', values);
         return resp.data;
     }catch(err) {
         console.log(err.message);
@@ -37,7 +37,7 @@ export const deleteShow = async (values) => {
 
 export const getAllTheatresByMovie = async (values) => {
     try {
-        const resp = await axiosInstance.post('http://127.0.0.1:8001/api/shows/get-all-theaters-by-movie', values);
+        const resp = await axiosInstance.post('/api/shows/get-all-theaters-by-movie', values);
         return resp.data;
     }catch(err) {
         console.log(err.message);
@@ -46,7 +46,7 @@ export const getAllTheatresByMovie = async (values) => {
 
 export const getShowById = async(values) => {
     try {
-        const resp = await axiosInstance.post('http://127.0.0.1:8001/api/shows/get-show-byId', values);
+        const resp = await axiosInstance.post('/api/shows/get-show-byId', values);
         return resp.data;
     }catch(err) {
         console.log(err.message);

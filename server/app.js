@@ -1,6 +1,8 @@
-
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
+const express_rate_limiter = require('express-rate-limit');
+const helmet = require('helmet');
 require('dotenv').config();
 const mongo_connection = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
@@ -12,10 +14,20 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const app = express();
 
 mongo_connection();
-
+const rateLimit = express_rate_limiter({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: "Too many requests from this IP, please try again later",
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+})
 app.use(express.json());
 app.use(cors());
-
+app.use(helmet());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+app.use('/api', rateLimit)
 app.use('/api/users', userRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/theaters', theaterRoutes);

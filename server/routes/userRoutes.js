@@ -1,6 +1,7 @@
 
 
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const User = require('../model/userModel');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middlewares/authMiddleware');
@@ -16,7 +17,9 @@ userRoutes.post('/register', async(req, res) => {
         if(user) {
             return res.send({success: false, message: "User already registered, please login"});
         }
-    
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+        req.body.password = hashedPassword;
         const newUser = new User(req.body);
         await newUser.save();
         res.send({success: true, messgage: "User has been registered successfully"});
@@ -32,8 +35,8 @@ userRoutes.post('/login', async (req,res) => {
         if(!user) {
             return res.send({success: false, message: "user doesn't exists, please register before login"});
         }
-
-        if(user.password !== req.body.password) {
+        const isMatch = await bcrypt.compare(req.body.password, user.password);
+        if(!isMatch) {
             return res.send({success: false, message: "password is incorrect"});
         }
         const token = jwt.sign({userId: user._id}, process.env.jwt_secret, {expiresIn: process.env.expires});
@@ -93,8 +96,9 @@ userRoutes.patch('/reset-password', async (req, res) => {
         if(user.otpExpires < Date.now()) {
             return res.send({success: false, message: "OTP has been expired"});
         }
-
-        user.password = password;
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        user.password = hashedPassword;
         user.otp = undefined;
         user.otpExpires = undefined;
         await user.save();
