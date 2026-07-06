@@ -18,6 +18,7 @@ movieRoutes.post('/add-movie', async(req, res) => {
 movieRoutes.get('/getAllMovies', async(req, res) => {
     try {
         const movies = await Movie.find();
+        
         res.send({success: true, message: "Fetched all the movies", data: movies});
 
     }catch(err) {

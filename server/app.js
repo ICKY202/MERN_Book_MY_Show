@@ -34,7 +34,8 @@ app.use(helmet.contentSecurityPolicy({
         frameSrc: ["'self'", "https://checkout.stripe.com"],
     },
 }))
-app.use(express.static(path.join(__dirname, 'build')));
+console.log("hello you reached backend");
+// app.use(express.static(path.join(__dirname, 'build')));
 app.use('/api', rateLimit)
 app.use('/api/users', userRoutes);
 app.use('/api/movies', movieRoutes);
@@ -44,7 +45,7 @@ app.use('/api/bookings', bookingRoutes);
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-const PORT = 8001;
+const PORT = 8001;  
 
 app.listen(PORT, () => {
     console.log('server listening...');

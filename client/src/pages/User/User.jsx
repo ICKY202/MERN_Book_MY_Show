@@ -1,3 +1,7 @@
+
+
+
 export default function User() {
-    return <div></div>
+
+    return <>Users</>;
 }

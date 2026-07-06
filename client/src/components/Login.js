@@ -6,12 +6,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
+  
   const onFinish = async (values) => {
     try {
       const response = await readUser(values);
-      console.log(response);
       if(response.success) {
         message.success(response.message);
+        console.log(response);  
         localStorage.setItem('token', response.data);
         navigate('/');
       }else {
@@ -21,6 +22,8 @@ export default function Login() {
       console.log(err);
     }
   }
+
+
   return (
     <>
       <header className="App-header">

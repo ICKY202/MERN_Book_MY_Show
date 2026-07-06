@@ -10,7 +10,6 @@ const EmailHelper = require('../utils/EmailHelper');
 const userRoutes = express.Router();
 
 userRoutes.post('/register', async(req, res) => {
-    console.log("register");
     try {
         const user = await User.findOne({email: req.body.email});
         
@@ -28,26 +27,24 @@ userRoutes.post('/register', async(req, res) => {
     }
 });
 userRoutes.post('/login', async (req,res) => {
-    console.log(req.body);
     try {
         const user = await User.findOne({email: req.body.email});
-
+        console.log(user);
         if(!user) {
-            return res.send({success: false, message: "user doesn't exists, please register before login"});
+            return res.status(401).send({success: false, message: "user doesn't exists, please register before login"});
         }
         const isMatch = await bcrypt.compare(req.body.password, user.password);
         if(!isMatch) {
-            return res.send({success: false, message: "password is incorrect"});
+            return res.status(400).send({success: false, message: "password is incorrect"});
         }
         const token = jwt.sign({userId: user._id}, process.env.jwt_secret, {expiresIn: process.env.expires});
         res.send({success: true, message: "User logged in successfully", data: token});
     }catch(error) {
-        res.send({success: false, message: "An error occurred, please try again later"});
+        res.status(501).send({success: false, message: "An error occurred, please try again later"});
     } 
 });
 
 userRoutes.get('/get-current-user', authMiddleware, async (req,res) => {
-    console.log(req.body.userId);
     try {
         const user = await User.findById(req.body.user).select('-password');
         res.send({success: true, message: "user authenticated!", data: user});
@@ -66,7 +63,6 @@ userRoutes.patch('/forgot-password', async (req, res) => {
             return res.send({success: false, message: "Please enter your email"});
         }
         const user = await User.findOne({email: email});
-        console.log(user);
         if(!user) {
             return res.send({success: false, message: "user doesn't exists"});
         }

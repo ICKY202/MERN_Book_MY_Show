@@ -1,3 +1,4 @@
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -263,6 +264,7 @@ hr{
   overflow-y: auto;
   width: 100%;
 }
+
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
@@ -273,6 +275,7 @@ hr{
   100% { transform: rotate(360deg); }
 }
 /* Loader Ends here */
+
 
 @media screen and (min-width: 768px){
   .site-layout{

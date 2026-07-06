@@ -21,10 +21,10 @@ const userSchema = new mongoose.Schema(
         default: false
     },
     role:{
-        type:String,
+        type:'String',
         enum:['user','admin','partner'],
         required:true,
-        default:'user'
+        default:'partner'
     },
     otp: {
         type: 'String',
