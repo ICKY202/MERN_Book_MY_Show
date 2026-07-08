@@ -110,7 +110,7 @@ export default function MovieList() {
           Add Movie
         </Button>
       </div>
-      <Table columns={tableColumns} dataSource={movies} />
+      <Table columns={tableColumns} dataSource={movies} className="flex-shrink-1"/>
       {isModalOpen && (
         <MovieForm
           isModalOpen={isModalOpen}

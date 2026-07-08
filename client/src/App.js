@@ -6,6 +6,7 @@ import Register from './components/Register';
 import ProtectedRoute from './components/ProtectedRoute';
 import Admin from './pages/Admin/Admin';
 import Partner from './pages/Partner/partner';
+import User from './pages/User/User';
 import SingleMovie from './components/SingleMovie';
 import BookShow from './components/BookShow';
 import ForgotPassword from './components/ForgotPassword';
@@ -26,9 +27,16 @@ function App() {
             {/* Protected Route */}
             <Route element={<ProtectedRoute />}>
               <Route path='/' element={<Home/>}/>
-              <Route path='/:id' element={<Profile />}/>
-              <Route path='/admin' element={<Admin />}></Route>
-              <Route path='/partner' element={<Partner />}></Route>
+              <Route path='/:id' element={<Profile />}>
+                <Route path="admin" element={<Admin />}></Route>
+                <Route path="partner" element={<Partner />}></Route>
+                <Route path="user" element={<User />}></Route>
+                <Route path='orders'></Route>
+                <Route path='rewards'></Route>
+                <Route path="wishlist"></Route>
+              </Route>
+              {/* <Route path='/admin' element={<Admin />}></Route> */}
+              {/* <Route path='/partner' element={<Partner />}></Route> */}
               <Route path="/movie/:id" element={<SingleMovie />}/>
               <Route path="/book-show/:id" element={<BookShow/>}/>
             </Route>

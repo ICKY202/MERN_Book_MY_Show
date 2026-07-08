@@ -1,4 +1,4 @@
-import { useNavigate, Link, useLocation, Outlet } from "react-router-dom";
+import { useNavigate, Link, Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../apis/user";
@@ -10,7 +10,7 @@ import {
   UserOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Row } from "antd";
 import { Header } from "antd/es/layout/layout";
 
 export default function ProtectedRoute({ children }) {
@@ -36,7 +36,7 @@ export default function ProtectedRoute({ children }) {
       children: [
         {
           label: (
-            <Link to={`/${user?._id}`}>
+            <Link to={`${user?._id}/${user?.role}`}>
               My Profile
             </Link>
           ),
@@ -103,8 +103,8 @@ export default function ProtectedRoute({ children }) {
             </Link>
             <Menu theme="dark" mode="horizontal" items={navItems} selectedKeys={["/", `/${user?._id}`]} />
           </Header>
-          <div style={{ padding: 24, minHeight: 380, background: "#fff" }}>
-            <Outlet />
+          <div style={{ padding: "24px", minHeight: 380, background: "#fff" }}>
+              <Outlet />
           </div>
         </Layout>
       </>

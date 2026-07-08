@@ -32,7 +32,5 @@ export default function Admin() {
             children: <TheatersTable />
         }
     ]
-    return <div>
-        <Tabs defaultActiveKey="1" items={items}></Tabs>
-    </div>
+    return <><Tabs defaultActiveKey="1" items={items}></Tabs></>
 }
