@@ -1,18 +1,20 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, App } from "antd";
 import {Link} from 'react-router-dom';
 import { readUser } from "../apis/user";
 import { useNavigate } from "react-router-dom";
 
 
 export default function Login() {
+  const { message } = App.useApp();
+  const [form] = Form.useForm();
   const navigate = useNavigate();
+
   
   const onFinish = async (values) => {
     try {
       const response = await readUser(values);
       if(response.success) {
         message.success(response.message);
-        console.log(response);  
         localStorage.setItem('token', response.data);
         navigate('/');
       }else {
@@ -21,6 +23,7 @@ export default function Login() {
     }catch(err) {
       console.log(err);
     }
+    form.resetFields();
   }
 
 
@@ -32,7 +35,7 @@ export default function Login() {
             <h1>Login to BookMyShow</h1>
           </section>
           <section className="right-section">
-            <Form layout="vertical" onFinish={onFinish}>
+            <Form form={form} layout="vertical" onFinish={onFinish}>
               <Form.Item
                 label="Email"
                 htmlFor="email"

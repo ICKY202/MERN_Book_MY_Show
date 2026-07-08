@@ -7,15 +7,18 @@ export const registerUser = async (values) => {
     const resp = await axiosInstance.post(`${API_URL}/register`, values);
     return resp.data;
   } catch (err) {
-    console.log(err);
+    const { data } = err.response;
+    return {success: false, message: data.message};
   }
 };
 export const readUser = async (values) => {
   try {
     const resp = await axiosInstance.post(`${API_URL}/login`, values);
+    console.log(resp);
     return resp.data;
   } catch (err) {
-    console.log(err);
+    const { data } = err.response;
+    return {success: false, message: data.message};
   }
 };
 

@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
         type:'String',
         enum:['user','admin','partner'],
         required:true,
-        default:'partner'
+        default:'user'
     },
     otp: {
         type: 'String',

@@ -18,7 +18,6 @@ export default function ProtectedRoute({ children }) {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
-  const location = useLocation();
   const navItems = [
     {
       key: "home",
@@ -47,6 +46,7 @@ export default function ProtectedRoute({ children }) {
           label: (
             <span
               onClick={() => {
+                navigate("/login");
                 localStorage.removeItem("token");
               }}
             >
@@ -98,9 +98,9 @@ export default function ProtectedRoute({ children }) {
               alignItems: "center",
             }}
           >
-            <h3 className="demo-logo text-white m-0" style={{ color: "white" }}>
-              Book My Show
-            </h3>
+            <Link to="/">
+              <h3 className="demo-logo text-white m-0" style={{ color: "white" }}>Book My Show</h3>
+            </Link>
             <Menu theme="dark" mode="horizontal" items={navItems} selectedKeys={["/", `/${user?._id}`]} />
           </Header>
           <div style={{ padding: 24, minHeight: 380, background: "#fff" }}>

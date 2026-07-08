@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { ROLE } from "../utils/constants";
 import Admin from "./Admin/Admin";
 import Partner from "./Partner/partner";
+import User from "./User/User";
 
 export default function Profile() {
 
@@ -13,5 +14,5 @@ export default function Profile() {
         return <Partner />;
     }
 
-    return <div>User</div>
+    return <User />
 }

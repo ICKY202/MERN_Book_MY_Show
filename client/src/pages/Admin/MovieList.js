@@ -71,7 +71,7 @@ export default function MovieList() {
       title: "Action",
       render: (text, data) => {
         return (
-          <div className="d-flex">
+          <div style={{ display: "flex", gap: "3px" }}>
             <Button
               onClick={() => {
                 setIsModalOpen(true);

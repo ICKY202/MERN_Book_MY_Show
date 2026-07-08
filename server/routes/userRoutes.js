@@ -21,7 +21,7 @@ userRoutes.post('/register', async(req, res) => {
         req.body.password = hashedPassword;
         const newUser = new User(req.body);
         await newUser.save();
-        res.send({success: true, messgage: "User has been registered successfully"});
+        res.send({success: true, message: "User has been registered successfully"});
     }catch(err) {
         res.send({success: false, message: 'An error occurred, please try again later'});
     }
@@ -29,7 +29,7 @@ userRoutes.post('/register', async(req, res) => {
 userRoutes.post('/login', async (req,res) => {
     try {
         const user = await User.findOne({email: req.body.email});
-        console.log(user);
+
         if(!user) {
             return res.status(401).send({success: false, message: "user doesn't exists, please register before login"});
         }

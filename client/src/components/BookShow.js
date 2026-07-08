@@ -12,7 +12,7 @@ export default function BookShow() {
   const { user } = useSelector((state) => state.user);
   const [show, setShow] = useState();
   const [selectedSeats, setSelectedSeats] = useState([]);
-
+  console.log(show);
   const navigate = useNavigate();
 
   const getData = async () => {

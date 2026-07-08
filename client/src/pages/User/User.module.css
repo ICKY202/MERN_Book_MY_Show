@@ -1,0 +1,53 @@
+
+
+
+.sidebar {
+    width: 250px;
+    margin: 20px; 
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.account_header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    padding-bottom: 10px;
+} 
+.account_header > h3 {
+    font-size: 23px;
+    font-weight: bold;
+}
+ 
+.account_items {
+    list-style-type: none;
+    padding: 0;
+}
+.account_items > li {
+    padding: 14px 16px;
+    margin-bottom: 10px;
+}
+
+.account_items > li {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+} 
+
+.account_items > li:hover {
+    border: 1px solid transparent;
+    background-color: #f2f5f9;
+    border-radius: 5px;   
+}
+
+.sign_out {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+}

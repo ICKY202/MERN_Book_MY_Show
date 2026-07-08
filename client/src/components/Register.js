@@ -1,19 +1,25 @@
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button, App } from "antd";
 
 import { Link } from "react-router-dom";
 import { registerUser } from "../apis/user";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const { message } = App.useApp();
   const navigate = useNavigate();
   const handleFinish = async (values) => {
-    const response = await registerUser(values);
-    if(response.success) {
-      message.info(response.message);
-      navigate('/login');
-    } else {
-      console.log('false');
-      message.info(response.message);
+    try {
+      const response = await registerUser(values);
+      console.log(response);
+      if(response.success) {
+        message.success(response.message);
+        navigate('/login');
+      } else {
+        console.log('false');
+        message.info(response.message);
+      }
+    }catch(err) {
+      console.log("The error is in Register.jsx", err);
     }
   };
   return (
