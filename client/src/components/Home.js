@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { getMovies } from "../apis/movies";
+import { assets} from '../assets/assets';
+
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
@@ -68,7 +70,7 @@ export default function Home() {
         {movies.length > 0 &&
           movies
             .filter((movie) => movie.name.toLowerCase().includes(searchText.toLowerCase()))
-            .map((movie) => {
+            .map((movie, index) => {
               return (
                 <Col
                   className="gutter-row mb-5"
@@ -90,7 +92,7 @@ export default function Home() {
                         );
                       }}
                       className="cursor-pointer"
-                      src={movie.poster}
+                      src={movie.poster ?? assets[index]}
                       alt="Movie Poster"
                       width={200}
                       style={{ borderRadius: "8px" }}

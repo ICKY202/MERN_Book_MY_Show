@@ -1,11 +1,9 @@
 import { axiosInstance } from "."
 
 
-const API_URL = "http://127.0.0.1:8001/api/movies"
-
 export const getMovie = async (movieId) => {
     try {
-        const resp = await axiosInstance.get(`${API_URL}/get/${movieId}`);
+        const resp = await axiosInstance.get(`/api/movies/get/${movieId}`);
         console.log(resp);
         return resp.data;
     }catch(err) {
@@ -15,7 +13,7 @@ export const getMovie = async (movieId) => {
 
 export const getMovies = async () => {
     try {
-        const response = await axiosInstance.get(`${API_URL}/getAllMovies`);
+        const response = await axiosInstance.get(`/api/movies/getAllMovies`);
         console.log(response)
         return response.data;
     }catch(err) {
@@ -25,7 +23,7 @@ export const getMovies = async () => {
 
 export const addMovie = async (values) => {
     try {
-        const response = await axiosInstance.post(`${API_URL}/add-movie`, values);
+        const response = await axiosInstance.post(`/api/movies/add-movie`, values);
 
         return response.data;
     }catch(err) {
@@ -35,7 +33,7 @@ export const addMovie = async (values) => {
 
 export const updateMovie = async (values) => {
     try {
-        const response = await axiosInstance.put(`${API_URL}/update-movie`, values);
+        const response = await axiosInstance.put(`/api/movies/update-movie`, values);
 
         return response.data;
     }catch(err) {
@@ -45,7 +43,7 @@ export const updateMovie = async (values) => {
 
 export const deleteMovie = async (values) => {
     try {
-        const response = await axiosInstance.put(`${API_URL}/delete-movie`, values);
+        const response = await axiosInstance.put(`/api/movies/delete-movie`, values);
         return response.data;
     }catch(err) {
         console.log(err);

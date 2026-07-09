@@ -34,8 +34,7 @@ app.use(helmet.contentSecurityPolicy({
         frameSrc: ["'self'", "https://checkout.stripe.com"],
     },
 }))
-console.log("hello you reached backend");
-// app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'build')));
 app.use('/api', rateLimit)
 app.use('/api/users', userRoutes);
 app.use('/api/movies', movieRoutes);

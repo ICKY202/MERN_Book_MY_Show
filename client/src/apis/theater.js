@@ -5,7 +5,7 @@ const API_URL = "http://127.0.0.1:8001/api/theaters"
 
 export const fetchTheatersByOwner = async (values) => {
     try {
-        const resp = await axiosInstance.post(API_URL + '/get-all-theaters-by-owner', values);
+        const resp = await axiosInstance.post('/api/theaters/get-all-theaters-by-owner', values);
         return resp.data;
     }catch(err) {
         console.log(err);
@@ -14,7 +14,7 @@ export const fetchTheatersByOwner = async (values) => {
 
 export const addTheater = async (values) => {
     try {
-        const resp = await axiosInstance.post(API_URL + '/add', values);
+        const resp = await axiosInstance.post('/api/theaters/add', values);
         return resp.data;
     }catch(err){
         console.log(err.message);
@@ -23,7 +23,7 @@ export const addTheater = async (values) => {
 
 export const updateTheater = async (values) => {
     try {
-        const resp = await axiosInstance.put(API_URL + '/update-theater', values);
+        const resp = await axiosInstance.put('/api/theaters/update-theater', values);
         return resp.data;
     }catch(err) {
         console.log(err.message);
@@ -32,7 +32,7 @@ export const updateTheater = async (values) => {
 
 export const deleteTheater = async (values) => {
     try {
-        const resp = await axiosInstance.put(API_URL + '/delete-theater', values);
+        const resp = await axiosInstance.put('/api/theaters/delete-theater', values);
         return resp.data;
     }catch(err) {
         console.log(err.message);
@@ -41,7 +41,7 @@ export const deleteTheater = async (values) => {
 
 export const getAllTheaters = async() => {
     try {
-        const resp = await axiosInstance.get(API_URL + '/getAllTheater');
+        const resp = await axiosInstance.get('/api/theaters/getAllTheaters');
         console.log(resp);
         return resp.data;
     }catch(err) {
