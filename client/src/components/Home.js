@@ -23,17 +23,30 @@ export default function Home() {
     }
   }
 
-  const handleSearch = () => {};
+  const debounce = function() {
+    let timer;
+    return (e) => {
+      if(timer) clearTimeout(timer);
+
+      timer = setTimeout(() => {
+        setSearchText(e.target.value.trim());
+      }, 800)
+    }
+  }
+
+
   useEffect(() => {
     getData();
   }, []);
+
+
   return (
-    <>
-      <Row className="justify-content-center w-100">
+    <div>
+      <Row className="justify-content-center w-100" justify={"center"} style={{zIndex: 0}}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <Input
             placeholder="Type here to search for movies"
-            onChange={handleSearch}
+            onChange={debounce()}
             prefix={<SearchOutlined />}
           />
           <br />
@@ -43,6 +56,8 @@ export default function Home() {
       </Row>
       <Row
         className="justify-content-center"
+        justify={'center'}
+        wrap={true}
         gutter={{
           xs: 8,
           sm: 16,
@@ -97,6 +112,6 @@ export default function Home() {
               );
             })}
       </Row>
-    </>
+    </div>
   );
 }
