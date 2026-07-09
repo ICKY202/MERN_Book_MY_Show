@@ -1,5 +1,4 @@
 
-
 export const assets = [
     "./toy_story.jpg",
     "./the_sheep_police.jpg",

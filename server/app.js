@@ -28,7 +28,7 @@ app.use(helmet.contentSecurityPolicy({
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'https://checkout.stripe.com/checkout.js'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
-        imgSrc: ["'self'", "https://assets-in.bmscdn.com/"],
+        imgSrc: ["'self'", "https://m.media-amazon.com/images/"],
         connectSrc: ["'self'", "https://api.stripe.com"],
         scriptSrcElem: ["'self'", "'unsafe-inline'", "https://checkout.stripe.com"],
         frameSrc: ["'self'", "https://checkout.stripe.com"],
